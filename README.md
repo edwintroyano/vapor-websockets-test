@@ -2,7 +2,7 @@
 
 Simple Vapor web app to test websockets with GET URL parameters
 
-###Start server:
+### Start server:
 
 `vapor build && vapor run`
 
