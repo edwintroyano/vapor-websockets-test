@@ -1,20 +1,69 @@
-<p align="center">
-    <img src="https://user-images.githubusercontent.com/1342803/36623515-7293b4ec-18d3-11e8-85ab-4e2f8fb38fbd.png" width="320" alt="API Template">
-    <br>
-    <br>
-    <a href="http://docs.vapor.codes/3.0/">
-        <img src="http://img.shields.io/badge/read_the-docs-2196f3.svg" alt="Documentation">
-    </a>
-    <a href="https://discord.gg/vapor">
-        <img src="https://img.shields.io/discord/431917998102675485.svg" alt="Team Chat">
-    </a>
-    <a href="LICENSE">
-        <img src="http://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
-    </a>
-    <a href="https://circleci.com/gh/vapor/api-template">
-        <img src="https://circleci.com/gh/vapor/api-template.svg?style=shield" alt="Continuous Integration">
-    </a>
-    <a href="https://swift.org">
-        <img src="http://img.shields.io/badge/swift-4.1-brightgreen.svg" alt="Swift 4.1">
-    </a>
-</center>
+# Vapor Websocket tests
+
+Simple Vapor web app to test websockets with GET URL parameters
+
+###Start server:
+
+`vapor build && vapor run`
+
+## A. Doesn't work with GET URL parameters
+
+Connect to `ws://localhost:8080/event?parameter=b`:
+
+```
+» wsta "ws://localhost:8080/event?parameter=b" -I
+WebSocket upgrade request
+---
+Host: localhost:8080
+Connection: Upgrade
+Upgrade: websocket
+Sec-WebSocket-Version: 13
+Sec-WebSocket-Key: AXltXFmGcDnD8UWHfn6A3w==
+Origin: http://localhost
+
+
+WebSocket upgrade response
+---
+404 Not Found
+content-length: 9
+date: Tue, 12 Jun 2018 11:54:47 GMT
+
+
+WebSocketError: WebSocket response error
+```
+
+Vapor server prints in log:
+
+```
+[ ERROR ] (Function) (Logger+LogError.swift:32)
+[ DEBUG ] Conform `(String, String, String, UInt, UInt) -> ()` to `Debuggable` for better debug info. (Logger+LogError.swift:34)
+```
+
+
+## B. Works without GET URL parameters
+
+
+Connect to `ws://localhost:8080/event`:
+
+```
+wsta ws://localhost:8080/event -I
+WebSocket upgrade request
+---
+Host: localhost:8080
+Connection: Upgrade
+Upgrade: websocket
+Sec-WebSocket-Version: 13
+Sec-WebSocket-Key: kaaTGCWD+FL4eYObXVjC9g==
+Origin: http://localhost
+
+
+WebSocket upgrade response
+---
+101 Switching Protocols
+Upgrade: websocket
+Sec-WebSocket-Accept: gncqwda+ZhbFnyKC0Cm6hhcJnHw=
+Connection: upgrade
+
+
+Connected to ws://localhost:8080/event
+```
