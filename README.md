@@ -1,6 +1,8 @@
 # Vapor Websocket tests
 
-Simple Vapor web app to test websockets with GET URL parameters
+Simple Vapor web app to test websockets with GET URL parameters.
+
+[Vapor issue](https://github.com/vapor/vapor/issues/1722)
 
 ### Start server:
 
